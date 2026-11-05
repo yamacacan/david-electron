@@ -1,0 +1,4 @@
+#!/bin/sh
+# Linux'ta wine yerine: electron-builder'ın ara NSIS kurulumundan kaldırıcıyı
+# kendi saf JS okuyucusuyla (UninstallerReader) çıkarır. Bkz. scripts/uninstaller-shim/extract.cjs
+exec node "$(dirname "$0")/../extract.cjs" "$@"

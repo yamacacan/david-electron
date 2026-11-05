@@ -1,0 +1,82 @@
+{
+  "name": "d-desktop",
+  "productName": "D.",
+  "version": "1.2.0",
+  "description": "D. — sesli sohbet, ekran paylaşımı ve mesajlaşma",
+  "author": "D.",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icons": "node scripts/make-icons.mjs",
+    "dist": "ELECTRON_BUILDER_WINE_TOOLSET_DIR=\"$PWD/scripts/uninstaller-shim\" electron-builder --win --x64 --publish never",
+    "release": "bash scripts/release.sh"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "electron": "44.10.1",
+    "electron-builder": "26.18.1",
+    "png-to-ico": "3.0.2",
+    "resedit": "3.1.0"
+  },
+  "build": {
+    "appId": "tr.com.acysoft.d",
+    "productName": "D.",
+    "executableName": "D",
+    "artifactName": "D-Setup-${version}.${ext}",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "shortcuts.js",
+      "offline.html",
+      "splash.html",
+      "build/icon.png",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "asar": true,
+    "electronLanguages": [
+      "tr",
+      "en-US"
+    ],
+    "afterPack": "scripts/after-pack.cjs",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://david.acysoft.com.tr/download/",
+        "useMultipleRangeRequest": false
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "D.",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "uninstallDisplayName": "D."
+    }
+  },
+  "dependencies": {
+    "electron-updater": "6.8.12"
+  }
+}
